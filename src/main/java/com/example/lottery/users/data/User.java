@@ -1,7 +1,11 @@
 package com.example.lottery.users.data;
 
+import com.example.lottery.ballot.data.Ballot;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +27,9 @@ public class User {
 
     @Column(name = "apikey", nullable = false, unique = true, length = 100)
     private String apikey;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ballot> ballots = new ArrayList<>();
 
     public User() {
     }
@@ -72,5 +79,13 @@ public class User {
 
     public void setApikey(String apikey) {
         this.apikey = apikey;
+    }
+
+    public List<Ballot> getBallots() {
+        return ballots;
+    }
+
+    public void setBallots(List<Ballot> ballots) {
+        this.ballots = ballots;
     }
 }

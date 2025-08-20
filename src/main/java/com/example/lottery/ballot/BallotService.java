@@ -5,8 +5,9 @@ import com.example.lottery.ballot.data.BallotRepository;
 import com.example.lottery.ballot.dto.BallotDto;
 import com.example.lottery.ballot.dto.BallotRequest;
 import com.example.lottery.users.data.UserRepository;
-import com.example.lottery.users.dto.UserDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BallotService {
@@ -26,5 +27,13 @@ public class BallotService {
         );
         ballotRepository.save(ballot);
         return BallotDto.fromEntity(ballot);
+    }
+
+    public List<BallotDto> fetchAllBallotsPerUser(String email){
+       return ballotRepository
+               .findAllByUser_Email(email)
+               .stream()
+               .map(BallotDto::fromEntity)
+               .toList();
     }
 }
