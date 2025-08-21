@@ -23,9 +23,6 @@ public class Ballot {
     @Column(name = "submission_date", nullable = false)
     private Instant submissionDate = Instant.now();
 
-    @Column(name = "winning", nullable = false)
-    private boolean winning = false;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "lottery_id", nullable = false)
     private Lottery lottery;
@@ -36,7 +33,6 @@ public class Ballot {
     public Ballot(User user, Lottery lottery) {
         this.user = user;
         this.submissionDate = Instant.now();
-        this.winning = false ;
         this.lottery = lottery;
     }
 
@@ -70,14 +66,6 @@ public class Ballot {
 
     public void setSubmissionDate(Instant submissionDate) {
         this.submissionDate = submissionDate;
-    }
-
-    public boolean isWinning() {
-        return winning;
-    }
-
-    public void setWinning(boolean winning) {
-        this.winning = winning;
     }
 }
 

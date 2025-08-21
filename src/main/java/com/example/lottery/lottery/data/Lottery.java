@@ -17,7 +17,7 @@ public class Lottery {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "lottery", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -26,6 +26,10 @@ public class Lottery {
     @Column(name = "expires_at", nullable = false)
     private Instant expiresAt = Instant.now();
 
+    @OneToOne
+    @JoinColumn(name = "winner_ballot_id")
+    private Ballot winner;
+
     public Lottery() {
     }
 
@@ -33,6 +37,7 @@ public class Lottery {
         this.name = name;
         this.ballots = ballots;
         this.expiresAt = expiresAt;
+        this.winner = null;
     }
 
     public String getId() {
@@ -65,5 +70,13 @@ public class Lottery {
 
     public void setExpiresAt(Instant expiresAt) {
         this.expiresAt = expiresAt;
+    }
+
+    public Ballot getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Ballot winner) {
+        this.winner = winner;
     }
 }

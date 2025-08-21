@@ -5,6 +5,7 @@ import com.example.lottery.ballot.dto.BallotDto;
 import com.example.lottery.ballot.dto.BallotRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,9 +22,14 @@ public class BallotController {
         return ballotService.registerBallot(ballotRequest);
     }
 
-    @GetMapping
-    public List<BallotDto> getAllBallotsByUser(@RequestParam("email") String email) {
+    @GetMapping("/all")
+    public List<BallotDto> getBallots(@RequestParam("email") String email) {
         return ballotService.fetchAllBallotsPerUser(email);
+    }
+
+    @GetMapping("/day")
+    public List<BallotDto> getBallots(@RequestParam("email") String email, @RequestParam("date") LocalDate date) {
+        return ballotService.fetchBallots(email, date);
     }
 
 }
