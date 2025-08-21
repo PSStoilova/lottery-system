@@ -1,5 +1,6 @@
 package com.example.lottery.ballot.data;
 
+import com.example.lottery.lottery.data.Lottery;
 import com.example.lottery.users.data.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -25,13 +26,26 @@ public class Ballot {
     @Column(name = "winning", nullable = false)
     private boolean winning = false;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lottery_id", nullable = false)
+    private Lottery lottery;
+
     public Ballot() {
     }
 
-    public Ballot(User user) {
+    public Ballot(User user, Lottery lottery) {
         this.user = user;
         this.submissionDate = Instant.now();
         this.winning = false ;
+        this.lottery = lottery;
+    }
+
+    public Lottery getLottery() {
+        return lottery;
+    }
+
+    public void setLottery(Lottery lottery) {
+        this.lottery = lottery;
     }
 
     public String getId() {

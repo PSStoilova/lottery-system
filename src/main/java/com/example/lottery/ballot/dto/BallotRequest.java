@@ -1,7 +1,8 @@
 package com.example.lottery.ballot.dto;
 
 public record BallotRequest(
-        String email
+        String email,
+        String lotteryName
 ) {
 
 }
