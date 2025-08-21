@@ -2,6 +2,7 @@ package com.example.lottery.controller;
 
 import com.example.lottery.lottery.LotteryService;
 import com.example.lottery.lottery.dto.LotteryDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class LotteryController {
     }
 
     @PostMapping
-    public LotteryDto createLottery(@RequestBody LotteryDto lotteryDto){
+    public LotteryDto createLottery(@RequestBody @Valid LotteryDto lotteryDto){
         return lotteryService.createLottery(lotteryDto);
     }
 

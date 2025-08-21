@@ -1,6 +1,7 @@
 package com.example.lottery.lottery.dto;
 
 import com.example.lottery.lottery.data.Lottery;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public record LotteryDto(
-        String name,
+        @NotEmpty String name,
         String winner,
         Instant expiresAt
 ) {

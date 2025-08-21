@@ -3,6 +3,7 @@ package com.example.lottery.controller;
 import com.example.lottery.ballot.BallotService;
 import com.example.lottery.ballot.dto.BallotDto;
 import com.example.lottery.ballot.dto.BallotRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -18,12 +19,12 @@ public class BallotController {
     }
 
     @PostMapping
-    public BallotDto registerBallot(@RequestBody BallotRequest ballotRequest) {
+    public BallotDto registerBallot(@RequestBody @Valid BallotRequest ballotRequest) {
         return ballotService.registerBallot(ballotRequest);
     }
 
     @GetMapping("/all")
-    public List<BallotDto> getBallots(@RequestParam("email") String email) {
+    public List<BallotDto> getBallots(@RequestParam(value = "email") String email) {
         return ballotService.fetchAllBallotsPerUser(email);
     }
 

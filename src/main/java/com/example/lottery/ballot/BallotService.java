@@ -4,6 +4,7 @@ import com.example.lottery.ballot.data.Ballot;
 import com.example.lottery.ballot.data.BallotRepository;
 import com.example.lottery.ballot.dto.BallotDto;
 import com.example.lottery.ballot.dto.BallotRequest;
+import com.example.lottery.ballot.exceptions.BallotException;
 import com.example.lottery.lottery.data.Lottery;
 import com.example.lottery.lottery.data.LotteryRepository;
 import com.example.lottery.users.data.User;
@@ -31,11 +32,11 @@ public class BallotService {
     }
 
     public BallotDto registerBallot(BallotRequest request) {
-        User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new RuntimeException("User's email was not found."));
-        Lottery lottery = lotteryRepository.findByName(request.lotteryName()).orElseThrow(() -> new RuntimeException("Lottery name was not found."));
+        User user = userRepository.findByEmail(request.email()).orElseThrow(() -> new BallotException("User's email was not found."));
+        Lottery lottery = lotteryRepository.findByName(request.lotteryName()).orElseThrow(() -> new BallotException("Lottery name was not found."));
 
         if (lottery.getExpiresAt().isBefore(Instant.now())) {
-            throw new RuntimeException("This lottery has already expired.");
+            throw new BallotException("This lottery has already expired.");
         }
 
         Ballot ballot = new Ballot(

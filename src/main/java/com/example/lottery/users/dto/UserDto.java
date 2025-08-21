@@ -1,12 +1,13 @@
 package com.example.lottery.users.dto;
 
 import com.example.lottery.users.data.User;
+import jakarta.validation.constraints.NotEmpty;
 
 public record UserDto(
-        String username,
-        String name,
-        String email,
-        String apikey
+        @NotEmpty String username,
+        @NotEmpty String name,
+        @NotEmpty String email,
+        @NotEmpty String apikey
 ) {
     public User toEntity() {
         return new User(this.name, this.username, this.email, this.apikey);

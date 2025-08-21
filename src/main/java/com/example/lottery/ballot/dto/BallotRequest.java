@@ -1,8 +1,10 @@
 package com.example.lottery.ballot.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public record BallotRequest(
-        String email,
-        String lotteryName
+        @NotEmpty String email,
+        @NotEmpty String lotteryName
 ) {
 
 }

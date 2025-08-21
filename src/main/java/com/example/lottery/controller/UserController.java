@@ -2,6 +2,7 @@ package com.example.lottery.controller;
 
 import com.example.lottery.users.UserService;
 import com.example.lottery.users.dto.UserDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto user){
+    public UserDto createUser(@RequestBody @Valid UserDto user){
        return userService.addUser(user);
     }
 
